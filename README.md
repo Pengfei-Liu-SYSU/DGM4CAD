@@ -1,7 +1,7 @@
 # DGM4CAD
 ---
 
-## README: Survey on Deep Generative Models for CAD
+## Deep Generative Models for Next-Generation Computer-Aided Design Paradigms
 
 ### Overview
 
@@ -13,7 +13,7 @@ This survey provides a comprehensive review of deep generative models applied to
 
 ![Figure 1](./figs/figure_1_overview.png)
 
-**Caption**: We summarize the paradigms centered on data modalities and task orientation. Input-driven tasks include text, sketch, and image-to-CAD, while CAD models or 3D shapes serve as inputs for tasks such as reconstruction and editing. Output modalities primarily focus on sketches, CAD models, and various 3D shapes, with a particular emphasis on sketch and CAD generation tasks. These tasks follow a typical pipeline, from requirement analysis to final output, illustrating how generative models guide the design process.
+We summarize the paradigms centered on data modalities and task orientation. Input-driven tasks include text, sketch, and image-to-CAD, while CAD models or 3D shapes serve as inputs for tasks such as reconstruction and editing. Output modalities primarily focus on sketches, CAD models, and various 3D shapes, with a particular emphasis on sketch and CAD generation tasks. These tasks follow a typical pipeline, from requirement analysis to final output, illustrating how generative models guide the design process.
 
 ---
 
@@ -21,45 +21,373 @@ This survey provides a comprehensive review of deep generative models applied to
 
 Below is a summary of key datasets used in CAD generative tasks, covering applications like sketch generation, CAD reconstruction, and text-to-CAD.
 
-| **Application**       | **Input**          | **Output**            | **Data**     | **Method**                |
-|-----------------------|--------------------|-----------------------|--------------|---------------------------|
-| Sketch Generation     | Sketch             | Sketch                | 15,000,000+  | SketchGraphs [1]          |
-|                       |                    |                       | 4,700,000+   | CAD as Language [2]       |
-| CAD Reconstruction    | B-rep              | Construction sequence | 1,000,000+   | ABC [3]                   |
-|                       |                    |                       | 37,000+      | CC3D-Ops [4]              |
-|                       |                    |                       | 40,000+      | CADParser [5]             |
-|                       |                    |                       | 8,625        | Fusion360 [6]             |
-|                       | Construction sequence |                    | 179,133      | DeepCAD [7]               |
-| Image-to-CAD          | Multi-view Images  |                       | 453,220      | Omni-CAD [8]              |
-|                       | Single Image       |                       | 200,000+     | OpenECAD [9]              |
-|                       |                    |                       | 4,574        | Img2CAD [10]              |
-|                       |                    |                       | 208,853      | ABC-mono [11]             |
-| Sketch-to-CAD         | Sketch             |                       | 82,000+      | Free2CAD [12]             |
-| Text-to-CAD           | Text               |                       | 453,220      | Omni-CAD [8]              |
-|                       |                    |                       | 158,000+     | Text2CAD [13]             |
-|                       | Text               | Python code           | 200          | CADPrompt [14]            |
-|                       |                    |                       | 57           | Query2CAD [15]            |
+<table border="1" style="width:100%; text-align:center;">
+  <tr>
+    <th>Application</th>
+    <th>Input</th>
+    <th>Output</th>
+    <th>Data</th>
+    <th>Method</th>
+  </tr>
+  <!-- Sketch Generation -->
+  <tr>
+    <td rowspan="2">Sketch Generation</td>
+    <td rowspan="2">sketch</td>
+    <td rowspan="2">sketch</td>
+    <td>15,000,000+</td>
+    <td>SketchGraphs</td>
+  </tr>
+  <tr>
+    <td>4,700,000+</td>
+    <td>CAD as Language</td>
+  </tr>
+  <!-- CAD Reconstruction -->
+  <tr>
+    <td rowspan="5">CAD Reconstruction</td>
+    <td rowspan="4">B-rep</td>
+    <td rowspan="5">construction sequence</td>
+    <td>1,000,000+</td>
+    <td>ABC</td>
+  </tr>
+  <tr>
+    <td>37,000+</td>
+    <td>CC3D-Ops</td>
+  </tr>
+  <tr>
+    <td>40,000+</td>
+    <td>CADParser</td>
+  </tr>
+  <tr>
+    <td>8,625</td>
+    <td>Fusion360</td>
+  </tr>
+  <tr>
+    <td>construction sequence</td>
+    <td>179,133</td>
+    <td>DeepCAD</td>
+  </tr>
+  <!-- Image-to-CAD -->
+  <tr>
+    <td rowspan="4">Image-to-CAD</td>
+    <td>multi-view images</td>
+    <td rowspan="4">construction sequence</td>
+    <td>453,220</td>
+    <td>Omni-CAD</td>
+  </tr>
+  <tr>
+    <td rowspan="3">single image</td>
+    <td>200,000+</td>
+    <td>OpenECAD</td>
+  </tr>
+  <tr>
+    <td>4,574</td>
+    <td>Img2CAD</td>
+  </tr>
+  <tr>
+    <td>208,853</td>
+    <td>ABC-mono</td>
+  </tr>
+  <!-- Sketch-to-CAD -->
+  <tr>
+    <td>Sketch-to-CAD</td>
+    <td>sketch</td>
+    <td>construction sequence</td>
+    <td>82,000+</td>
+    <td>Free2CAD</td>
+  </tr>
+  <!-- Text-to-CAD -->
+  <tr>
+    <td rowspan="4">Text-to-CAD</td>
+    <td rowspan="4">text</td>
+    <td rowspan="2">construction sequence</td>
+    <td>453,220</td>
+    <td>Omni-CAD</td>
+  </tr>
+  <tr>
+    <td>158,000+</td>
+    <td>Text2CAD</td>
+  </tr>
+  <tr>
+    <td rowspan="2">python code</td>
+    <td>200</td>
+    <td>CADPrompt</td>
+  </tr>
+  <tr>
+    <td>57</td>
+    <td>Query2CAD</td>
+  </tr>
+</table>
 
 ---
 
 ### Table 2: Generative Models for CAD Tasks
 
-This table provides an overview of various generative models applied to CAD, categorized by their input, output, and model architecture.
-
-| **Application**       | **Input**          | **Output**            | **Model**            | **Method**                |
-|-----------------------|--------------------|-----------------------|----------------------|---------------------------|
-| Sketch Generation     | None               | Sketch                | Transformer          | CurveGen/TurtleGen [16]   |
-|                       | Sketch             |                       | Transformer          | CAD as Language [2]       |
-|                       |                    |                       | VQ-VAE + Transformer | HNC-CAD [17]              |
-| Sketch-to-CAD         | Sketch             | 3D CAD model          | GPT-4V + Diffusion   | Sketch2Prototype [18]     |
-|                       |                    | 3D mesh               | Transformer          | PolyGen [19]              |
-| CAD Generation        | None               | 3D CAD model          | Transformer          | CAD-MLLM [8]              |
-|                       |                    | 3D shape              | GAN                  | GRASS [20]                |
-| Text-to-CAD           | Text               | 3D CAD model          | Diffusion            | DreamGaussian [21]        |
-|                       |                    | Python code           | GPT-4                | CADCodeVerify [14]        |
-| Image-to-CAD          | Image              | 3D CAD model          | Autoencoder          | Deep CAD/CAE [22]         |
-| Reconstruction        | 3D CAD model       | 3D CAD model          | VAE                  | SDM-NET [23]              |
-| CAD Editing           | Partial shape      | 3D CAD model          | VQ-VAE + Transformer | HNC-CAD [17]              |
+<table border="1" style="width:100%; text-align:center;">
+  <tr>
+    <th>Application</th>
+    <th>Input</th>
+    <th>Output</th>
+    <th>Model</th>
+    <th>Method</th>
+  </tr>
+  <!-- Sketch Generation -->
+  <tr>
+    <td rowspan="6">Sketch Generation</td>
+    <td rowspan="2">None</td>
+    <td rowspan="6">sketch</td>
+    <td rowspan="5">Transformer</td>
+    <td>CurveGen/TurtleGen</td>
+  </tr>
+  <tr>
+    <td>CAD as Language </td>
+  </tr>
+  <tr>
+    <td rowspan="4">sketch</td>
+    <td>CAD as Language </td>
+  </tr>
+  <tr>
+    <td>SketchGen</td>
+  </tr>
+  <tr>
+    <td>Vitruvion</td>
+  </tr>
+  <tr>
+    <td>VQ-VAE + Transformer</td>
+    <td>HNC-CAD</td>
+  </tr>
+  <!-- Sketch-to-CAD -->
+  <tr>
+    <td rowspan="5">Sketch-to-CAD</td>
+    <td rowspan="5">sketch</td>
+    <td rowspan="2">3D CAD model</td>
+    <td>GPT-4V + Diffusion</td>
+    <td>Sketch2Prototype</td>
+  </tr>
+  <tr>
+    <td>VAE + Diffusion</td>
+    <td>RECAD</td>
+  </tr>
+  <tr>
+    <td>3D mesh</td>
+    <td>Transformer</td>
+    <td>PolyGen</td>
+  </tr>
+  <tr>
+    <td>3D shape</td>
+    <td>CNN</td>
+    <td>Shape Synthesis</td>
+  </tr>
+  <tr>
+    <td>B-Rep structure</td>
+    <td>Transformer</td>
+    <td>SolidGen</td>
+  </tr>
+  <!-- CAD Generation -->
+  <tr>
+    <td rowspan="7">CAD Generation</td>
+    <td rowspan="7">None</td>
+    <td rowspan="2">3D CAD model</td>
+    <td>Transformer</td>
+    <td>CAD-MLLM</td>
+  </tr>
+  <tr>
+    <td>VQ-VAE + Transformer</td>
+    <td>HNC-CAD</td>
+  </tr>
+  <tr>
+    <td>3D mesh</td>
+    <td rowspan="2">GAN</td>
+    <td>SDF-StyleGAN</td>
+  </tr>
+  <tr>
+    <td rowspan="2">3D shape</td>
+    <td>GRASS</td>
+  </tr>
+  <tr>
+    <td>GPT model</td>
+    <td>MeshGPT</td>
+  </tr>
+  <tr>
+    <td>B-Rep structure</td>
+    <td>Transformer</td>
+    <td>SolidGen</td>
+  </tr>
+  <tr>
+    <td>construction sequence</td>
+    <td>VAE</td>
+    <td>ShapeAssembly</td>
+  </tr>
+  <!-- Text-to-CAD -->
+  <tr>
+    <td rowspan="12">Text-to-CAD</td>
+    <td rowspan="12">text</td>
+    <td rowspan="3">3D CAD model</td>
+    <td rowspan="2">Diffusion</td>
+    <td>DreamGaussian</td>
+  </tr>
+  <tr>
+    <td>Text2CAD</td>
+  </tr>
+  <tr>
+    <td>Transformer</td>
+    <td>Text2CAD</td>
+  </tr>
+  <tr>
+    <td rowspan="4">3D mesh</td>
+    <td>CNN + GRU + GAN</td>
+    <td>Text2Shape</td>
+  </tr>
+  <tr>
+    <td>Diffusion</td>
+    <td>Magic3D</td>
+  </tr>
+  <tr>
+    <td>Transformer</td>
+    <td>SkexGen</td>
+  </tr>
+  <tr>
+    <td>VQ-VAE + Transformer</td>
+    <td>CLIP-Sculptor</td>
+  </tr>
+  <tr>
+    <td rowspan="2">3D shape</td>
+    <td>CLIP + Flow</td>
+    <td>CLIP-Forge</td>
+  </tr>
+  <tr>
+    <td>VQ-VAE + Transformer</td>
+    <td>ShapeGPT</td>
+  </tr>
+  <tr>
+    <td>construction sequence</td>
+    <td>GPT model</td>
+    <td>CAD-GPT</td>
+  </tr>
+  <tr>
+    <td rowspan="2">python code</td>
+    <td>GPT-4</td>
+    <td>CADCodeVerify</td>
+  </tr>
+  <tr>
+    <td>GPT-4 + BLIP2</td>
+    <td>Query2CAD</td>
+  </tr>
+  <!-- Image-to-CAD -->
+  <tr>
+    <td rowspan="9">Image-to-CAD</td>
+    <td rowspan="9">image</td>
+    <td rowspan="5">3D CAD model</td>
+    <td>Autoencoder</td>
+    <td>Deep CAD/CAE</td>
+  </tr>
+  <tr>
+    <td>Diffusion</td>
+    <td>DreamGaussian</td>
+  </tr>
+  <tr>
+    <td>Transformer</td>
+    <td>CAD-MLLM</td>
+  </tr>
+  <tr>
+    <td>Transformer + Diffusion</td>
+    <td>GenCAD</td>
+  </tr>
+  <tr>
+    <td>VAE</td>
+    <td>Synthesizing 3D</td>
+  </tr>
+  <tr>
+    <td>3D shape</td>
+    <td>VQ-VAE + Transformer</td>
+    <td>ShapeGPT</td>
+  </tr>
+  <tr>
+    <td>B-Rep structure</td>
+    <td>Transformer</td>
+    <td>SolidGen</td>
+  </tr>
+  <tr>
+    <td rowspan="2">construction sequence</td>
+    <td>GPT model</td>
+    <td>CAD-GPT</td>
+  </tr>
+  <tr>
+    <td>CLIP + Transformer</td>
+    <td>OpenECAD</td>
+  </tr>
+  <!-- Reconstruction -->
+  <tr>
+    <td rowspan="10">Reconstruction</td>
+    <td>3D CAD model</td>
+    <td>3D CAD model</td>
+    <td>VAE</td>
+    <td>SDM-NET</td>
+  </tr>
+  <tr>
+    <td rowspan="4">3D shape</td>
+    <td>3D mesh</td>
+    <td>Diffusion</td>
+    <td>PolyDiff</td>
+  </tr>
+  <tr>
+    <td rowspan="2">3D shape</td>
+    <td>GAN</td>
+    <td>GRASS</td>
+  </tr>
+  <tr>
+    <td>GPT model</td>
+    <td>MeshGPT</td>
+  </tr>
+  <tr>
+    <td rowspan="2">construction sequence</td>
+    <td>CNN + GRU</td>
+    <td>CSGNet</td>
+  </tr>
+  <tr>
+    <td>construction sequence</td>
+    <td>Transformer</td>
+    <td>DeepCAD</td>
+  </tr>
+  <tr>
+    <td rowspan="4">point cloud</td>
+    <td>3D CAD model</td>
+    <td>Transformer</td>
+    <td>Point2Cyl</td>
+  </tr>
+  <tr>
+    <td>3D shape</td>
+    <td>GAN</td>
+    <td>SDF-StyleGAN</td>
+  </tr>
+  <tr>
+    <td>B-Rep structure</td>
+    <td>CNN + Transformer</td>
+    <td>ComplexGen</td>
+  </tr>
+  <tr>
+    <td>construction sequence</td>
+    <td>Diffusion</td>
+    <td>CAD-Diffuser</td>
+  </tr>
+  <!-- CAD Editing -->
+  <tr>
+    <td rowspan="3">CAD Editing</td>
+    <td rowspan="2">partial shape</td>
+    <td>3D CAD model</td>
+    <td rowspan="2">VQ-VAE + Transformer</td>
+    <td>HNC-CAD</td>
+  </tr>
+  <tr>
+    <td>3D shape</td>
+    <td>ShapeGPT</td>
+  </tr>
+  <tr>
+    <td>point cloud</td>
+    <td>3D mesh</td>
+    <td>GAN</td>
+    <td>SDF-StyleGAN</td>
+  </tr>
+</table>
 
 ---
 
@@ -67,7 +395,7 @@ This table provides an overview of various generative models applied to CAD, cat
 
 ![Case Studies Comparison](figs/figure_3_case_studies.png)
 
-**Caption**: Comparison of CAD models generated by different LLMs (o3-mini-high, DeepSeek-r1, Grok) based on Python code for various shapes. The figure illustrates the diverse levels of accuracy, creativity, and model quality exhibited by the evaluated models.
+Comparison of CAD models generated by different LLMs (o3-mini-high, DeepSeek-r1, Grok) based on Python code for various shapes. The figure illustrates the diverse levels of accuracy, creativity, and model quality exhibited by the evaluated models.
 
 ---
 
@@ -191,4 +519,4 @@ if __name__ == "__main__":
     )
 ```
 
-**Explanation**: This code fulfills the requirement to create a 3D CAD model of a table with the specified components and parameters using Python in FreeCAD.
+This code fulfills the requirement to create a 3D CAD model of a table with the specified components and parameters using Python in FreeCAD.
