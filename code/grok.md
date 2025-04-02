@@ -118,7 +118,7 @@ if __name__ == "__main__":
         thickness=10.0    # Gear thickness of 10 mm
     )
     print("Gear created successfully.")
-'''
+```
 
 ### bracket
 - [Prompt](#prompt): Provide Python code to generate a simple bracket in a CAD system, with specified dimensions for length, width, and hole positions.
@@ -170,6 +170,7 @@ bracket = create_bracket(
     hole_diameter=10,
     hole_positions=[(20, 25), (80, 25)]
 )
+```
 
 ### shaft with two holes at the ends
 - [Prompt](#prompt): Generate Python code to model a shaft with two holes at the ends, including parameters for the shaft length, diameter, and hole size.
@@ -225,6 +226,7 @@ def create_shaft(shaft_length, shaft_diameter, hole_size):
 # Example usage
 if __name__ == "__main__":
     create_shaft(100, 20, 5)
+```
 
 ### circular part with multiple holes
 - [Prompt](#prompt): Generate Python code for modeling a circular part with multiple holes, including parameters for diameter, number of holes, and hole size.
@@ -281,7 +283,8 @@ def create_holey_disk(disk_diameter, num_holes, hole_size, disk_thickness):
     return obj
 
 # Example usage (uncomment to run in FreeCAD's Python console):
-# create_holey_disk(disk_diameter=100, num_holes=6, hole_size=10, disk_thickness=10)
+create_holey_disk(disk_diameter=100, num_holes=6, hole_size=10, disk_thickness=10)
+```
 
 ### rectangular part with three holes
 - [Prompt](#prompt): Provide Python code to create a rectangular part with three holes in a CAD system, including parameters for dimensions and hole positions.
@@ -352,6 +355,7 @@ if __name__ == "__main__":
     # Create the part
     part = create_rectangular_part_with_holes(length, width, thickness, hole_diameters, hole_positions)
     print("Rectangular part with holes created successfully.")
+```
 
 ### chair
 - [Prompt](#prompt): Provide Python code to generate a 3D CAD model of a chair, including the seat, backrest, and four legs. Include parameters for seat height, backrest angle, and leg dimensions.
@@ -419,6 +423,7 @@ def create_chair_model(
 # Example usage
 if __name__ == "__main__":
     create_chair_model()
+```
 
 ### table
 - [Prompt](#prompt): Provide Python code to generate a 3D CAD model of a table, including the tabletop, four legs, and structural support. Include parameters for tabletop dimensions, leg height, and thickness of the table surface.
@@ -536,3 +541,4 @@ if __name__ == "__main__":
         support_height=10.0,      # Height of the structural supports in mm
         support_thickness=2.0     # Thickness of the structural supports in mm
     )
+```
